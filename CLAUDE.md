@@ -60,6 +60,12 @@ peach / sky / blush) — see `index.html` = lavender, `names.html` = mint, `sugg
   boy/girl name-card grids, a starting-letters hint row, and empty-state prompts.
 - `.name-card` with a coloured `.tag` chip: `tag-classic` (sky), `tag-modern` (mint),
   `tag-virtue` (lavender), `tag-tirthankarainspired` (peach), `tag-familyfavourite` (blush).
+- `.pronounce-btn` — the 🔊 icon on each name card. Plays a pre-recorded clip from
+  `assets/audio/{slug}.m4a` (an Indian-English voice, macOS's built-in "Rishi"). If a clip is
+  missing (e.g. a name just added to `names.json` without regenerating audio), it falls back to
+  the visitor's own browser `speechSynthesis`, preferring an `en-IN` voice if their device has
+  one. Slug = `name.toLowerCase().replace(/[^a-z0-9]/g, "")` — must match between `main.js` and
+  `scripts/generate_audio.py`.
 - `.gender-toggle` (All/Boy/Girl pill switch) + `.search-box` — both live-filter the accordion,
   see `initNamesDirectory()` in `main.js`.
 - `.countdown` — weeks/days-to-go widget, driven by `startCountdown()` in `main.js`.
@@ -92,6 +98,10 @@ Warm, playful, family voice — "we", "our little one". Light and excited, never
 - Local dev server: `.claude/launch.json` runs `python3 -m http.server 8721` — use that (or any
   static server) rather than opening `index.html` via `file://`, since `names.html` fetches
   `assets/data/names.json` and `file://` fetches are blocked by the browser.
+- After adding names to `names.json`, run `python3 scripts/generate_audio.py` (macOS only) to
+  generate their pronunciation clips into `assets/audio/`. It skips names that already have a
+  clip, so it's safe to re-run any time. Not strictly required — missing clips just fall back
+  to the browser voice — but pre-recorded clips sound far more consistent.
 
 ## Deploy
 Static site on GitHub Pages (branch `main`, folder `/root`). `.nojekyll` keeps GitHub from

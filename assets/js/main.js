@@ -61,12 +61,56 @@ async function initNamesDirectory() {
     const noteHtml = entry.note ? `<div class="src">${entry.note}</div>` : "";
     return `
       <div class="name-card" data-name="${entry.name.toLowerCase()}">
-        <div class="nm">${entry.name}</div>
+        <div class="nm-row">
+          <span class="nm">${entry.name}</span>
+          <button type="button" class="pronounce-btn" data-name="${entry.name}" aria-label="Hear how to pronounce ${entry.name}" title="Hear pronunciation">🔊</button>
+        </div>
         <div class="mn">${entry.meaning}</div>
         ${noteHtml}
         <span class="${tagClass(entry.tag)}">${entry.tag}</span>
       </div>`;
   }
+
+  function slugify(name) {
+    return name.toLowerCase().replace(/[^a-z0-9]/g, "");
+  }
+
+  // Fallback for any name that doesn't have a pre-recorded clip yet (e.g. a
+  // freshly suggested name) — uses the visitor's own browser voice, preferring
+  // an Indian-English one if their device happens to have one installed.
+  function speakFallback(name) {
+    if (!("speechSynthesis" in window)) return;
+    const voices = window.speechSynthesis.getVoices();
+    const indianVoice =
+      voices.find((v) => v.lang === "en-IN") ||
+      voices.find((v) => /india/i.test(v.name));
+    const utter = new SpeechSynthesisUtterance(name);
+    if (indianVoice) utter.voice = indianVoice;
+    utter.rate = 0.85;
+    window.speechSynthesis.speak(utter);
+  }
+
+  function playPronunciation(name, btn) {
+    const audio = new Audio(`assets/audio/${slugify(name)}.m4a`);
+    btn.classList.add("playing");
+    const stop = () => btn.classList.remove("playing");
+    audio.addEventListener("ended", stop);
+    audio.addEventListener("error", () => {
+      stop();
+      speakFallback(name);
+    });
+    audio.play().catch(() => {
+      stop();
+      speakFallback(name);
+    });
+  }
+
+  // Event delegation: survives listEl being re-rendered on every search/filter.
+  listEl.addEventListener("click", (e) => {
+    const btn = e.target.closest(".pronounce-btn");
+    if (!btn) return;
+    playPronunciation(btn.dataset.name, btn);
+  });
 
   function matchesQuery(entry) {
     if (!query) return true;

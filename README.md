@@ -54,12 +54,20 @@ See `CLAUDE.md` for the design system, and `PROJECT-CONTEXT.md` for background o
 name list came from and what's still open. To add or edit names, just edit
 `assets/data/names.json` — no rebuild needed, the page fetches it at runtime.
 
+To generate pronunciation audio for any new names (macOS only):
+
+```bash
+python3 scripts/generate_audio.py
+```
+
 ## Files
 - `index.html` — homepage (hero, countdown, how Rashi-based naming works)
 - `names.html` — the searchable Rashi directory (the main feature)
 - `suggest.html` — "suggest a name" form (display-only until wired to a backend — see the
   comment inside the file)
 - `assets/data/names.json` — all the name data, edit this to add names
+- `assets/audio/` — pre-recorded pronunciation clips (one `.m4a` per name), played by the 🔊
+  button on each name card; see `scripts/generate_audio.py` to regenerate
 - `assets/css/style.css`, `assets/js/main.js` — shared styles/behaviour
 - `CLAUDE.md` — design system + build instructions for Claude Code
 - `PROJECT-CONTEXT.md` — background, decisions, open questions
