@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Suggest a Name — Our Baby Name Book</title>
+  <meta name="description" content="Suggest a modern baby name with a Jain meaning for our little one." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌙</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body class="accent-butter">
+
+  <nav class="site-nav">
+    <div class="container">
+      <a class="brand" href="index.html"><span class="brand-mark">🌙</span> Our Baby Name Book</a>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="names.html">Browse Names</a></li>
+        <li><a href="suggest.html" aria-current="page">Suggest a Name</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="hero accent-wash" style="padding-bottom: 24px;">
+    <div class="container">
+      <div class="hero-kicker">Your favourite names, welcome here</div>
+      <h1>Suggest a name ✍️</h1>
+      <p class="lede">Know a modern, short name with a lovely Jain meaning? We'd love to add it to the list!</p>
+    </div>
+  </header>
+
+  <section class="section" style="padding-top:8px;">
+    <div class="container">
+      <!-- HOW TO MAKE THIS FORM WORK:
+           GitHub Pages can't process form submissions on its own. Easiest options:
+           1) Formspree (free): create a form at formspree.io and set the action below to
+              action="https://formspree.io/f/XXXXXXX" method="POST"
+           2) Google Form: swap this section for an embedded Google Form iframe.
+           3) GitHub Issues: link a pre-filled "New Issue" URL instead of a form, and
+              (optionally) a GitHub Action to append accepted issues into
+              assets/data/names.json automatically.
+           Until then, this form is display-only. See CLAUDE.md for the plan. -->
+      <form class="form" action="#" method="POST">
+        <div class="form-row">
+          <label for="your-name">Your name</label>
+          <input type="text" id="your-name" name="your-name" placeholder="e.g. Auntie Meera" />
+        </div>
+        <div class="form-row">
+          <label for="suggested-name">Suggested baby name</label>
+          <input type="text" id="suggested-name" name="suggested-name" placeholder="e.g. Aarav" required />
+        </div>
+        <div class="form-row">
+          <label for="gender">For</label>
+          <select id="gender" name="gender">
+            <option value="boy">Boy</option>
+            <option value="girl">Girl</option>
+            <option value="either">Either</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label for="rashi">Rashi (if you know it — starting sound)</label>
+          <select id="rashi" name="rashi">
+            <option value="">Not sure / any</option>
+            <option>Mesh (Aries) — A, L, E, I</option>
+            <option>Vrushabh (Taurus) — B, V, U</option>
+            <option>Mithun (Gemini) — Ka, Gha, Chha</option>
+            <option>Kark (Cancer) — Da, Ha</option>
+            <option>Sinh (Leo) — Ma, Ta</option>
+            <option>Kanya (Virgo) — Pa, Tha, Na</option>
+            <option>Tula (Libra) — Ra, Ta</option>
+            <option>Vrushik (Scorpio) — Na, Ya</option>
+            <option>Dhanu (Sagittarius) — Bha, Dha, Pha</option>
+            <option>Makar (Capricorn) — Kha, Ja</option>
+            <option>Kumbh (Aquarius) — Ga, Sa, Sha</option>
+            <option>Meen (Pisces) — Da, Cha, Tha, Jha</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label for="meaning">Meaning</label>
+          <textarea id="meaning" name="meaning" rows="3" placeholder="What does it mean, and where does it come from?"></textarea>
+        </div>
+        <button class="btn btn-primary" type="submit">Send suggestion</button>
+        <p class="form-note">This form is display-only for now, until it's connected to a free service (Formspree, a Google Form, or GitHub Issues). Meanwhile, just message or email your suggestion directly — we'd love to hear it!</p>
+      </form>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <span class="brand-mark">🌙✦</span>
+    <p><a href="names.html">Browse the current list</a></p>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

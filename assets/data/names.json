@@ -1,0 +1,212 @@
+{
+  "note": "Curated starter list. Meanings are drawn from common Jain naming references and Jain philosophical/Tirthankara roots. Starting sounds are grouped per our family's Rashi chart — treat as a helpful shortlist, not the final word; confirm the exact naming syllable with your pandit once baby's birth chart is ready.",
+  "rashis": [
+    {
+      "id": "mesh",
+      "name": "Mesh",
+      "gujarati": "મેષ",
+      "zodiac": "Aries",
+      "symbol": "♈",
+      "letters": ["A", "L", "E", "I"],
+      "boys": [
+        { "name": "Anant", "meaning": "Infinite, endless", "tag": "Tirthankara-inspired", "note": "After Anantnath, the 14th Tirthankara" },
+        { "name": "Aanat", "meaning": "Courteous and humble", "tag": "Virtue" },
+        { "name": "Ajey", "meaning": "Invincible, unconquerable", "tag": "Modern" },
+        { "name": "Ilesh", "meaning": "Lord of the earth", "tag": "Classic" }
+      ],
+      "girls": [
+        { "name": "Aneri", "meaning": "One who is extraordinary", "tag": "Modern" },
+        { "name": "Aaushi", "meaning": "Careful and knowledgeable", "tag": "Modern" },
+        { "name": "Indrani", "meaning": "Regal; consort of Indra", "tag": "Classic" },
+        { "name": "Labhdi", "meaning": "One blessed with celestial gifts", "tag": "Classic" }
+      ]
+    },
+    {
+      "id": "vrushabh",
+      "name": "Vrushabh",
+      "gujarati": "વૃષભ",
+      "zodiac": "Taurus",
+      "symbol": "♉",
+      "letters": ["B", "V", "U"],
+      "boys": [
+        { "name": "Veer", "meaning": "Brave, valiant", "tag": "Tirthankara-inspired", "note": "Associated with Lord Mahavir" },
+        { "name": "Vinay", "meaning": "Modest, well-mannered", "tag": "Virtue" },
+        { "name": "Vasu", "meaning": "Precious, radiant being", "tag": "Modern" },
+        { "name": "Bharam", "meaning": "Esteemed, reputed", "tag": "Classic" }
+      ],
+      "girls": [
+        { "name": "Vandana", "meaning": "Adoration, salutation", "tag": "Classic" },
+        { "name": "Vidya", "meaning": "Wisdom; knowledge", "tag": "Virtue" },
+        { "name": "Vinaya", "meaning": "Humble, modest", "tag": "Virtue" },
+        { "name": "Urvi", "meaning": "The earth", "tag": "Classic" },
+        { "name": "Udita", "meaning": "Risen, radiant", "tag": "Modern" }
+      ]
+    },
+    {
+      "id": "mithun",
+      "name": "Mithun",
+      "gujarati": "મિથુન",
+      "zodiac": "Gemini",
+      "symbol": "♊",
+      "letters": ["Ka", "Gha", "Chha"],
+      "boys": [
+        { "name": "Kunal", "meaning": "Lotus — purity and beauty", "tag": "Classic" },
+        { "name": "Krupesh", "meaning": "Kind-hearted, compassionate", "tag": "Virtue" }
+      ],
+      "girls": [
+        { "name": "Karuna", "meaning": "Compassion — a core Jain virtue", "tag": "Virtue" },
+        { "name": "Chiti", "meaning": "A heart full of love", "tag": "Modern" },
+        { "name": "Charmi", "meaning": "Lovely, charming", "tag": "Modern" }
+      ]
+    },
+    {
+      "id": "kark",
+      "name": "Kark",
+      "gujarati": "કર્ક",
+      "zodiac": "Cancer",
+      "symbol": "♋",
+      "letters": ["Da", "Ha"],
+      "boys": [
+        { "name": "Dhaval", "meaning": "Fair, radiant", "tag": "Classic" },
+        { "name": "Dhimant", "meaning": "Wise, intelligent", "tag": "Virtue" }
+      ],
+      "girls": [
+        { "name": "Dhara", "meaning": "The earth; a flow", "tag": "Classic" },
+        { "name": "Dharini", "meaning": "One who sustains; the earth itself", "tag": "Classic" },
+        { "name": "Darshika", "meaning": "Wise and insightful", "tag": "Modern" }
+      ]
+    },
+    {
+      "id": "sinh",
+      "name": "Sinh",
+      "gujarati": "સિંહ",
+      "zodiac": "Leo",
+      "symbol": "♌",
+      "letters": ["Ma", "Ta"],
+      "boys": [
+        { "name": "Moksh", "meaning": "Liberation — the soul's ultimate freedom", "tag": "Virtue", "note": "The final goal in Jain philosophy" },
+        { "name": "Mrugesh", "meaning": "Strong and mighty as a lion", "tag": "Classic" },
+        { "name": "Tirthesh", "meaning": "Lord of the sacred crossing", "tag": "Tirthankara-inspired" }
+      ],
+      "girls": [
+        { "name": "Miti", "meaning": "Graceful; well-measured", "tag": "Modern" },
+        { "name": "Mruga", "meaning": "A graceful, beautiful being", "tag": "Modern" }
+      ]
+    },
+    {
+      "id": "kanya",
+      "name": "Kanya",
+      "gujarati": "કન્યા",
+      "zodiac": "Virgo",
+      "symbol": "♍",
+      "letters": ["Pa", "Tha", "Na"],
+      "boys": [
+        { "name": "Parshva", "meaning": "Beloved of all", "tag": "Tirthankara-inspired", "note": "Short form of Parshvanath, 23rd Tirthankara" }
+      ],
+      "girls": [
+        { "name": "Pahal", "meaning": "A first step; a new beginning", "tag": "Family favourite ⭐" },
+        { "name": "Purti", "meaning": "Fulfilment, completion", "tag": "Virtue" }
+      ]
+    },
+    {
+      "id": "tula",
+      "name": "Tula",
+      "gujarati": "તુલા",
+      "zodiac": "Libra",
+      "symbol": "♎",
+      "letters": ["Ra", "Ta"],
+      "boys": [
+        { "name": "Ratnesh", "meaning": "Lord of jewels", "tag": "Virtue", "note": "After the Ratnatraya — the Three Jewels of Jain philosophy" },
+        { "name": "Ratesh", "meaning": "Lord of truth", "tag": "Classic" },
+        { "name": "Tirth", "meaning": "Sacred crossing; the path to liberation", "tag": "Virtue" }
+      ],
+      "girls": [
+        { "name": "Riddhi", "meaning": "Spiritual prosperity and attainment", "tag": "Virtue" },
+        { "name": "Ritvi", "meaning": "Rightly guided; a wise scholar", "tag": "Modern" }
+      ]
+    },
+    {
+      "id": "vrushik",
+      "name": "Vrushik",
+      "gujarati": "વૃશ્ચિક",
+      "zodiac": "Scorpio",
+      "symbol": "♏",
+      "letters": ["Na", "Ya"],
+      "boys": [
+        { "name": "Nirvaan", "meaning": "Liberation, ultimate peace", "tag": "Virtue" },
+        { "name": "Yash", "meaning": "Glory, victory", "tag": "Modern" }
+      ],
+      "girls": [
+        { "name": "Nainshi", "meaning": "One with enchanting, graceful eyes", "tag": "Modern" },
+        { "name": "Nitali", "meaning": "Filled with grace", "tag": "Modern" }
+      ]
+    },
+    {
+      "id": "dhanu",
+      "name": "Dhanu",
+      "gujarati": "ધનુ",
+      "zodiac": "Sagittarius",
+      "symbol": "♐",
+      "letters": ["Bha", "Dha", "Pha"],
+      "boys": [
+        { "name": "Bhavya", "meaning": "One destined for liberation", "tag": "Virtue", "note": "A Jain philosophical term for a soul capable of attaining moksha" },
+        { "name": "Dhruv", "meaning": "Steadfast; the pole star", "tag": "Modern" }
+      ],
+      "girls": [
+        { "name": "Bhavisha", "meaning": "One who can foresee; visionary", "tag": "Modern" },
+        { "name": "Dhisha", "meaning": "Direction; a guiding side", "tag": "Modern" }
+      ]
+    },
+    {
+      "id": "makar",
+      "name": "Makar",
+      "gujarati": "મકર",
+      "zodiac": "Capricorn",
+      "symbol": "♑",
+      "letters": ["Kha", "Ja"],
+      "boys": [
+        { "name": "Jinesh", "meaning": "Lord of the victors", "tag": "Tirthankara-inspired", "note": "From 'Jina' — one who has conquered inner passions, the root of the word Jain" },
+        { "name": "Jai", "meaning": "Victory", "tag": "Modern" }
+      ],
+      "girls": [
+        { "name": "Jinal", "meaning": "Devoted to the Jina (the victors)", "tag": "Modern" },
+        { "name": "Khushali", "meaning": "One who brings happiness", "tag": "Modern" },
+        { "name": "Jayana", "meaning": "The power that leads to victory", "tag": "Classic" }
+      ]
+    },
+    {
+      "id": "kumbh",
+      "name": "Kumbh",
+      "gujarati": "કુંભ",
+      "zodiac": "Aquarius",
+      "symbol": "♒",
+      "letters": ["Ga", "Sa", "Sha"],
+      "boys": [
+        { "name": "Samyak", "meaning": "Right, correct", "tag": "Virtue", "note": "From Samyak Darshan-Gyan-Charitra, the Three Jewels of Jain practice" },
+        { "name": "Sahaj", "meaning": "Natural, innate", "tag": "Virtue", "note": "The soul's true, effortless nature" },
+        { "name": "Suvrat", "meaning": "One devoted to sacred vows", "tag": "Virtue" }
+      ],
+      "girls": [
+        { "name": "Shyla", "meaning": "Virtuous character, moral conduct", "tag": "Family favourite ⭐" },
+        { "name": "Siya", "meaning": "Graceful; echoes Sita from the Jain Ramayan tradition", "tag": "Family favourite ⭐" },
+        { "name": "Shital", "meaning": "Calm, cool, serene", "tag": "Classic" },
+        { "name": "Sushali", "meaning": "One of graceful conduct", "tag": "Classic" }
+      ]
+    },
+    {
+      "id": "meen",
+      "name": "Meen",
+      "gujarati": "મીન",
+      "zodiac": "Pisces",
+      "symbol": "♓",
+      "letters": ["Da", "Cha", "Tha", "Jha"],
+      "boys": [
+        { "name": "Chandraprabh", "meaning": "Lord of the moon", "tag": "Tirthankara-inspired", "note": "After the 8th Tirthankara, Chandraprabhu" }
+      ],
+      "girls": [
+        { "name": "Divyaprabha", "meaning": "Divine radiance", "tag": "Classic" },
+        { "name": "Tejal", "meaning": "Lustrous, radiant", "tag": "Modern" }
+      ]
+    }
+  ]
+}
