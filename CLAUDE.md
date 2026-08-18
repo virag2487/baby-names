@@ -56,16 +56,32 @@ have walked through" ambient background the whole theme is built around.
 ### Signature motifs
 - 🦁 lion brand mark. Paw print (🐾) replaces the old star as the eyebrow icon and section
   divider glyph.
-- `.zoo-peek` — big (3.4rem desktop / 2rem mobile) animal emoji "peeking" from each hero's four
-  corners, gentle bob animation (`peek-bob`, respects reduced-motion). **Position with fixed
-  pixel offsets** (`top:14px; left:10px` etc.), never percentages — hero height varies a lot
-  with how many lines the copy wraps to (especially on mobile), so a `top:X%` value that looks
-  right on desktop can drift straight into the body text on a narrow screen. Different animal
-  set per page (index = giraffe/monkey/parrot/elephant, names = zebra/peacock/turtle/lion,
-  suggest = koala/fox/panda) so the site doesn't feel repetitive.
-- `.stars` — small emoji sprinkles (leaf/bee/paw) in the hero background, same twinkle animation
-  as before. **Hidden entirely below 640px** (`@media (max-width:640px) { .stars {display:none} }`)
-  since there's no position on a tall, wrapped mobile hero that's safely clear of every line.
+- **Two complementary mechanisms carry the "animals everywhere" theme — use the right one for
+  the job:**
+  - `.zoo-peek` (+ `.zoo-peek.sm` for smaller accents) — vivid animal/nature emoji *overlaid* on
+    a hero, scattered in a zigzag across the full width, gentle bob animation (`peek-bob`,
+    respects reduced-motion). Since this overlays real text, it's fragile by nature — see the
+    safe-offset comment directly above `@keyframes peek-bob` in `style.css` before touching
+    these. Short version: `.hero` carries **128px of top padding specifically so this layer has
+    real room to work with** (128px 0 64px; 96px top on mobile) — don't shrink that padding back
+    down without also re-checking every offset below it. Position with **fixed pixel offsets
+    only** (`top:6px; left:2%`), never a percentage for the vertical axis — hero height varies a
+    lot with how many lines the copy wraps to, so a `top:X%` that looks fine on desktop can land
+    on top of a word on a narrow screen. Horizontal (`left:X%`) is safe as a percentage — it
+    never changes which text line something lands on, only where along it. And the offset has to
+    account for the emoji's *own height* eating into the padding, not just the offset value —
+    a "big" emoji is ~45px tall, so against 128px padding, offsets up to ~65px are fine; a
+    "small" one is ~24px tall, offsets up to ~85px. Different animal set per page (index =
+    giraffe/monkey/parrot/elephant/bee/leaf/frog, names = zebra/peacock/turtle/lion/paw/leaf,
+    suggest = koala/fox/panda/leaf/paw) so the site doesn't feel repetitive.
+  - `.critter-strip` — the mechanism for getting animals **down the whole page**, not just the
+    hero. A plain flex row sitting in **normal document flow** between sections (after `</header>`,
+    between every `<section>`, before `<footer>`, occasionally inside a section like between the
+    toolbar and the list on `names.html`) — not absolutely positioned, so it is structurally
+    impossible for it to overlap text; it just takes up its own row of space, like a trail the
+    animals left between exhibits. This is the one to reach for by default when adding more
+    decoration somewhere — it needs zero safe-zone math. Each page has 2–3 strips with a
+    different mix of animals/leaves so scrolling down keeps surfacing new ones.
 - Rounded pill buttons, soft card shadows, dashed-border circular "enclosure" badges.
 
 ### Reusable components

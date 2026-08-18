@@ -263,6 +263,35 @@ body.accent-blush    .accent-wash { background: linear-gradient(180deg, var(--bl
   50% { transform: translateY(-8px) rotate(var(--peek-tilt, 0deg)); }
 }
 
+/* Critter strips — the mechanism for getting animals distributed all the
+   way down the page, not just in the hero. Deliberately NOT absolutely
+   positioned: these are ordinary elements sitting in the normal document
+   flow between sections, so there is no way for them to ever overlap
+   text — they just take up their own row of space, like a little trail
+   the animals left between exhibits. Sprinkle a few of these between
+   sections on every page rather than relying on the hero to carry the
+   whole theme. */
+.critter-strip {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 30px;
+  padding: 6px 20px 26px;
+}
+.critter-strip span {
+  display: inline-block;
+  font-size: 2.1rem;
+  filter: drop-shadow(0 4px 8px rgba(74, 59, 42, 0.12));
+}
+.critter-strip span:nth-child(even) { transform: translateY(9px) rotate(-7deg); }
+.critter-strip span:nth-child(3n) { transform: translateY(-7px) rotate(9deg); }
+.critter-strip span:nth-child(3n+1):not(:nth-child(even)) { transform: rotate(-5deg); }
+@media (max-width: 640px) {
+  .critter-strip { gap: 20px; padding: 4px 14px 20px; }
+  .critter-strip span { font-size: 1.6rem; }
+}
+
 /* -------------------- buttons -------------------- */
 .btn {
   display: inline-flex;
