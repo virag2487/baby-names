@@ -1,10 +1,17 @@
 #!/usr/bin/env python3
 """
 Generate pronunciation audio clips for every name in assets/data/names.json,
-using macOS's built-in Indian-English voice ("Rishi").
+using macOS's built-in Hindi female voice ("Lekha") — the closest Indian
+female voice available on-device (Apple ships no Indian-English female
+voice; Lekha reads these Sanskrit/Hindi-origin names naturally).
 
 Run this whenever you add/edit names in names.json:
     python3 scripts/generate_audio.py
+
+To pick a different installed voice (e.g. another Indian regional-language
+female voice like Vani/ta_IN, Geeta/te_IN, Piya/bn_IN — run `say -v ?` to
+see what's installed), just change VOICE below and delete the old clips in
+assets/audio/ so they regenerate.
 
 Requires macOS (uses the `say` and `afconvert` command-line tools — both
 ship with the OS, nothing to install). Not needed to view the site — names
@@ -20,7 +27,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 DATA_FILE = ROOT / "assets" / "data" / "names.json"
 AUDIO_DIR = ROOT / "assets" / "audio"
-VOICE = "Rishi"       # macOS built-in Indian-English voice
+VOICE = "Lekha"       # macOS built-in Hindi female voice
 RATE = "155"          # words per minute — a touch slower than default, for clarity
 
 

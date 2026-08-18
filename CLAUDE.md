@@ -61,10 +61,12 @@ peach / sky / blush) — see `index.html` = lavender, `names.html` = mint, `sugg
 - `.name-card` with a coloured `.tag` chip: `tag-classic` (sky), `tag-modern` (mint),
   `tag-virtue` (lavender), `tag-tirthankarainspired` (peach), `tag-familyfavourite` (blush).
 - `.pronounce-btn` — the 🔊 icon on each name card. Plays a pre-recorded clip from
-  `assets/audio/{slug}.m4a` (an Indian-English voice, macOS's built-in "Rishi"). If a clip is
-  missing (e.g. a name just added to `names.json` without regenerating audio), it falls back to
-  the visitor's own browser `speechSynthesis`, preferring an `en-IN` voice if their device has
-  one. Slug = `name.toLowerCase().replace(/[^a-z0-9]/g, "")` — must match between `main.js` and
+  `assets/audio/{slug}.m4a` (macOS's built-in Hindi female voice, "Lekha" — the closest Indian
+  female voice available on-device; Apple ships no Indian-English female voice, and Lekha reads
+  these Sanskrit/Hindi-origin names naturally). If a clip is missing (e.g. a name just added to
+  `names.json` without regenerating audio), it falls back to the visitor's own browser
+  `speechSynthesis`, preferring an `en-IN` voice if their device has one. Slug =
+  `name.toLowerCase().replace(/[^a-z0-9]/g, "")` — must match between `main.js` and
   `scripts/generate_audio.py`.
 - `.gender-toggle` (All/Boy/Girl pill switch) + `.search-box` — both live-filter the accordion,
   see `initNamesDirectory()` in `main.js`.
