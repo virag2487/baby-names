@@ -226,82 +226,86 @@ body.accent-blush    .accent-wash { background: linear-gradient(180deg, var(--bl
 }
 
 /* =========================================================
-   Animated critter lanes — the whole "zoo" mechanism.
-   Live animals moving through the page: birds/butterflies flying across,
-   animals walking along the ground. Each lane is an ordinary element in
-   normal document flow (never absolutely overlaid on text), fixed height,
-   overflow:hidden — so no matter how far a creature travels, it is
-   structurally impossible for it to cover a word. Use `.critter-lane` for
-   a full-width band between/within sections; the hero has its own two
-   built-in lanes (sky + ground) using its existing safe padding bands.
+   Critters — hand-drawn cartoon animals (see critters.js), animated
+   gently IN PLACE (bounce / sway / blink) rather than travelling across
+   the screen. A `.critter` is a fixed-size box that critters.js fills
+   with inline SVG on load; a `.critter-eyes` group inside that SVG gets
+   the shared blink animation automatically.
+
+   Two placement contexts:
+   - `.critter-row` — an ordinary flex row in normal document flow
+     (between/within sections). Can't overlap text by construction.
+   - `.critter-peek` — absolutely positioned inside the hero, so it has
+     to follow the same safe-offset rule as the old .zoo-peek did: use
+     fixed pixel top/bottom offsets (never a percentage — hero height
+     varies with how the copy wraps) and keep offset + the critter's own
+     size inside the hero's own padding band (128px top / 64px bottom,
+     96px/24px on the two shorter heroes).
    ========================================================= */
-.critter-lane {
-  position: relative;
-  height: 74px;
-  overflow: hidden;
+.critter {
+  display: inline-block;
+  width: 56px;
+  height: 56px;
+  filter: drop-shadow(0 4px 8px rgba(74, 59, 42, 0.15));
+}
+.critter svg { width: 100%; height: 100%; display: block; }
+.critter.sm { width: 40px; height: 40px; }
+
+.critter-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 34px;
+  padding: 10px 20px 24px;
+}
+@media (max-width: 640px) {
+  .critter { width: 42px; height: 42px; }
+  .critter.sm { width: 32px; height: 32px; }
+  .critter-row { gap: 22px; padding: 6px 14px 18px; }
+}
+
+.critter-peek {
+  position: absolute;
+  z-index: 0;
   pointer-events: none;
 }
-.critter-lane.tall { height: 96px; }
-@media (max-width: 640px) {
-  .critter-lane { height: 56px; }
-  .critter-lane.tall { height: 72px; }
+
+/* idle motions — mix and match across instances so the row doesn't move
+   in unison; vary animation-delay per instance for the same reason */
+.idle-bounce { animation: idle-bounce 2.3s ease-in-out infinite; }
+.idle-sway   { animation: idle-sway 3s ease-in-out infinite; transform-origin: 50% 90%; }
+.idle-wiggle { animation: idle-wiggle 2.1s ease-in-out infinite; }
+
+@keyframes idle-bounce {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-9px); }
+}
+@keyframes idle-sway {
+  0%, 100% { transform: rotate(-7deg); }
+  50%      { transform: rotate(7deg); }
+}
+@keyframes idle-wiggle {
+  0%, 100% { transform: rotate(0deg) translateY(0); }
+  25%      { transform: rotate(-5deg) translateY(-2px); }
+  75%      { transform: rotate(5deg) translateY(-2px); }
 }
 
-/* .flyer travels the lane's full width on a wandering flight path (its own
-   keyframe drifts up/down); the nested .flap span adds a fast independent
-   wing-flutter rotation on top, so the two motions combine naturally. */
-.flyer {
-  position: absolute;
-  left: -12%;
-  font-size: 2rem;
-  animation-name: fly-across;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-  filter: drop-shadow(0 3px 6px rgba(74, 59, 42, 0.15));
+/* blink — targets the eyes group injected inside the SVG. transform-box
+   makes the scale happen around the eyes' own centre, not the SVG's
+   corner, so it reads as a blink and not a squish. */
+.critter-eyes {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: blink 4.6s ease-in-out infinite;
 }
-.flap { display: inline-block; animation: wing-flap 0.8s ease-in-out infinite alternate; }
-@keyframes fly-across {
-  0%   { left: -12%; transform: translateY(0); }
-  20%  { transform: translateY(-14px); }
-  40%  { transform: translateY(6px); }
-  60%  { transform: translateY(-10px); }
-  80%  { transform: translateY(4px); }
-  100% { left: 112%; transform: translateY(0); }
-}
-@keyframes wing-flap {
-  from { transform: rotate(-10deg) translateY(0); }
-  to   { transform: rotate(12deg) translateY(-3px); }
-}
-
-/* .walker travels along the ground at a fixed height, its nested .step
-   span adding a quick footstep bounce. */
-.walker {
-  position: absolute;
-  bottom: 2px;
-  left: -14%;
-  font-size: 2.3rem;
-  animation-name: walk-across;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-  filter: drop-shadow(0 3px 6px rgba(74, 59, 42, 0.15));
-}
-.step { display: inline-block; animation: footstep 0.45s ease-in-out infinite alternate; }
-@keyframes walk-across {
-  0%   { left: -14%; }
-  100% { left: 114%; }
-}
-@keyframes footstep {
-  from { transform: translateY(0) scaleY(1); }
-  to   { transform: translateY(-3px) scaleY(0.95); }
+@keyframes blink {
+  0%, 92%, 100% { transform: scaleY(1); }
+  96%           { transform: scaleY(0.12); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .flyer, .walker { animation: none; left: 42%; }
-  .flap, .step { animation: none; }
-}
-@media (max-width: 640px) {
-  .flyer { font-size: 1.5rem; }
-  .walker { font-size: 1.8rem; }
+  .idle-bounce, .idle-sway, .idle-wiggle, .critter-eyes { animation: none; }
 }
 
 /* -------------------- buttons -------------------- */

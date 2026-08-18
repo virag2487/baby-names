@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/css/style.css?v=9" />
+  <link rel="stylesheet" href="assets/css/style.css?v=10" />
 </head>
 <body class="accent-butter">
 
@@ -26,9 +26,10 @@
   </nav>
 
   <header class="hero accent-wash" style="padding-bottom: 24px;">
-    <span class="flyer" aria-hidden="true" style="top:6px; animation-duration:20s; animation-delay:0s;"><span class="flap">🦋</span></span>
-    <span class="flyer" aria-hidden="true" style="top:32px; animation-duration:25s; animation-delay:5s;"><span class="flap">🐝</span></span>
-    <span class="flyer" aria-hidden="true" style="top:56px; animation-duration:17s; animation-delay:10s;"><span class="flap">🦜</span></span>
+    <span class="critter critter-peek idle-wiggle" aria-hidden="true" style="top:4px; left:5%;" data-animal="fox"></span>
+    <span class="critter critter-peek idle-bounce" aria-hidden="true" style="top:30px; left:26%; animation-delay:0.5s;" data-animal="butterfly"></span>
+    <span class="critter critter-peek idle-sway" aria-hidden="true" style="top:6px; left:70%; animation-delay:1s;" data-animal="bird"></span>
+    <span class="critter critter-peek sm idle-wiggle" aria-hidden="true" style="top:54px; left:48%; animation-delay:1.5s;" data-animal="bee"></span>
     <div class="container">
       <div class="hero-kicker">Your favourite names, welcome here</div>
       <h1>Leave your paw print 🐾</h1>
@@ -36,9 +37,9 @@
     </div>
   </header>
 
-  <div class="critter-lane" aria-hidden="true">
-    <span class="flyer" style="top:4px; animation-duration:22s; animation-delay:1s;"><span class="flap">🐿️</span></span>
-    <span class="walker" style="bottom:2px; animation-duration:18s; animation-delay:6s;"><span class="step">🦊</span></span>
+  <div class="critter-row" aria-hidden="true">
+    <span class="critter idle-bounce" data-animal="monkey" style="animation-delay:0.2s;"></span>
+    <span class="critter idle-sway" data-animal="giraffe" style="animation-delay:0.9s;"></span>
   </div>
 
   <section class="section" style="padding-top:8px;">
@@ -97,9 +98,9 @@
     </div>
   </section>
 
-  <div class="critter-lane tall" aria-hidden="true">
-    <span class="flyer" style="top:8px; animation-duration:23s; animation-delay:2s;"><span class="flap">🦋</span></span>
-    <span class="walker" style="bottom:3px; animation-duration:19s; animation-delay:7s;"><span class="step">🐼</span></span>
+  <div class="critter-row" aria-hidden="true">
+    <span class="critter idle-wiggle" data-animal="panda" style="animation-delay:0.4s;"></span>
+    <span class="critter idle-bounce" data-animal="elephant" style="animation-delay:1.2s;"></span>
   </div>
 
   <footer class="site-footer">
@@ -107,6 +108,7 @@
     <p><a href="names.html">Browse the current list</a></p>
   </footer>
 
-  <script src="assets/js/main.js?v=9"></script>
+  <script src="assets/js/critters.js?v=10"></script>
+  <script src="assets/js/main.js?v=10"></script>
 </body>
 </html>

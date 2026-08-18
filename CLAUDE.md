@@ -56,45 +56,47 @@ have walked through" ambient background the whole theme is built around.
 ### Signature motifs
 - 🦁 lion brand mark. Paw print (🐾) replaces the old star as the eyebrow icon and section
   divider glyph.
-- **Live, moving animals — `.critter-lane` — is the theme's main mechanism.** This is the
-  fourth iteration; each earlier one was tried, shown to the user, and replaced based on
-  specific feedback. Know this history before changing it, so you don't casually re-introduce
-  an already-rejected idea:
+- **Hand-drawn cartoon critters, animated gently in place, is the theme's main mechanism.**
+  This is the fifth iteration; each earlier one was tried, shown to the user, and replaced
+  based on specific feedback. Know this history before changing it, so you don't casually
+  re-introduce an already-rejected idea:
   1. *Static animals only in the hero* → user wanted them down the whole page.
-  2. *Evenly-spaced static strips between every section* (`.critter-strip` full of plain
-     `<span>`s) → covered the page, but read as a designed rhythm, not chance — correctly
-     rejected as "not actually random."
-  3. *Static animals scattered at irregular positions within each section*, using a low-opacity
-     `.ghost` variant so they could sit near/behind text safely → still static. User clarified
-     what they'd actually wanted from the start: **real movement** — "light animation of
-     animals, birds etc." — not clever placement of motionless icons.
-  4. *Current version*: animals that fly and walk **across** the page inside `.critter-lane`
-     bands. This is the one to imitate.
-  - `.critter-lane` — a fixed-height (`74px`, `56px` mobile; `.tall` variant `96px`/`72px`),
-    `overflow:hidden` band in **normal document flow** (never absolutely overlaid on text) —
-    structurally impossible to cover a word regardless of how far something inside it travels.
-    One lane sits after the hero, one between/within each major section, one before the footer
-    on every page — this is what makes the motion feel like it's "throughout the page," not just
-    the banner.
-  - `.flyer` (+ nested `.flap` span) — travels the lane's full width left→right on an infinite
-    loop (`fly-across`, animates `left` from `-12%` to `112%` plus a wandering vertical drift);
-    `.flap` adds an independent, faster wing-flutter rotation on top, so the two motions combine
-    into a natural-looking flight. `.walker` (+ nested `.step`) is the ground equivalent —
-    travels in a straight line along the lane's bottom edge, `.step` adds a quick footstep
-    bounce. Only `top`/`bottom` need setting per instance (fixed px, safe-zone rules below still
-    apply) plus `animation-duration`/`animation-delay` for variety — horizontal position is
-    entirely driven by the animation, not set per instance.
-  - The hero has its own two lanes built into its padding rather than a separate element: a
-    **sky lane** using the top padding (several `.flyer`s) and, where there's room, a **ground
-    lane** using the bottom padding (one `.walker`). `.hero` carries **128px of top padding
-    specifically so the sky lane has real room to work with** (128px 0 64px; 96px top on
-    mobile) — don't shrink that without rechecking every `top` offset below it. Same safe-zone
-    math as before: offset + the creature's own height must stay inside the padding — a flyer
-    is ~32px tall (1.5rem mobile), a walker ~37px (1.8rem mobile) — and `names.html`/
-    `suggest.html` override the hero's bottom padding down to `24px`, too tight for a ground
-    walker, so those two heroes are sky-only.
-  - `prefers-reduced-motion: reduce` stops every animation and parks each creature at a fixed
-    `left:42%` rather than hiding them, so the theme still reads even with motion off.
+  2. *Evenly-spaced static strips between every section* → covered the page, but read as a
+     designed rhythm, not chance — rejected as "not actually random."
+  3. *Static animals scattered at irregular positions within each section*, low-opacity where
+     near text → still static. User clarified they'd wanted **real movement** all along —
+     "light animation of animals, birds etc."
+  4. *Animals travelling left-to-right across the screen* (`.flyer`/`.walker` inside
+     `.critter-lane` bands, flying/walking a full traversal on a loop) → user didn't want
+     screen-crossing motion, wanted **idle motion in place** instead. Separately, they also
+     asked to move off plain emoji.
+  5. *Current version*: hand-drawn original SVG cartoon animals (`assets/js/critters.js`),
+     animated **in place** — bounce, sway, wiggle, blink — never travelling. This is the one to
+     imitate.
+  - **`assets/js/critters.js`** holds the `CRITTERS` object — one hand-coded inline-SVG string
+    per animal (currently: bird, butterfly, bee, giraffe, elephant, monkey, fox, panda), original
+    art in a consistent "kawaii mascot" style (rounded head, big eyes with a highlight dot, blush
+    cheeks, soft drop shadow) using the site's own palette hex values. This exists specifically
+    because the user asked for "cute animal stickers" instead of emoji, and downloading stock
+    art from the web isn't something to do — most of what a search turns up is copyrighted
+    illustration work, not free to reuse on a public site. `initCritters()` finds every
+    `<span class="critter" data-animal="...">` placeholder on `DOMContentLoaded` and injects the
+    matching markup once. To add a new animal: add a `CRITTERS.name` entry following the same
+    proportions (head circle roughly `cx=60 cy=62 r=34-36` in a `0 0 120 120` viewBox) and give
+    it a `<g class="critter-eyes">` group so the shared blink animation picks it up.
+  - **Placement is two mechanisms**, same safety split as the animal-scatter rounds taught:
+    `.critter-row` is a plain flex row in **normal document flow** (between/within sections) —
+    structurally can't overlap text, use this by default. `.critter-peek` is absolutely
+    positioned *inside the hero only*, so it still needs the same safe-offset care as every
+    overlay layer before it: fixed pixel `top`/`bottom` (never a percentage — hero height varies
+    with how the copy wraps), and offset + the critter's own size (`56px`, `40px` for `.sm`, less
+    on mobile) must stay inside the hero's padding band. `.hero`'s 128px top padding (96px
+    mobile) exists for exactly this.
+  - **Animation is idle-in-place only** — `.idle-bounce` / `.idle-sway` / `.idle-wiggle` on the
+    wrapper span (translateY bob, rotate sway, a combined wiggle), plus a `.critter-eyes` blink
+    baked into every SVG via `transform-box: fill-box` so it scales around the eyes' own centre.
+    Vary `animation-delay` per instance so a row doesn't move in lockstep.
+    `prefers-reduced-motion: reduce` turns all of it off.
 - Rounded pill buttons, soft card shadows, dashed-border circular "enclosure" badges.
 
 ### Reusable components
@@ -139,8 +141,9 @@ Warm, playful, family voice — "we", "our little one". Light and excited, never
   Action auto-sync to `names.json`). Family decided to leave it as a placeholder for now.
 
 ## Structure & conventions
-- Shared styles: `assets/css/style.css`. Shared script: `assets/js/main.js`. Every page links to
-  both — edit the shared files, never inline per-page styles/scripts, to keep the site in sync.
+- Shared styles: `assets/css/style.css`. Shared scripts: `assets/js/critters.js` (loaded first —
+  the hand-drawn animal SVG library) then `assets/js/main.js`. Every page links to all three —
+  edit the shared files, never inline per-page styles/scripts, to keep the site in sync.
 - Every page uses identical `<nav>` and `<footer>` markup (static site, no includes/build step).
 - Pages: `index.html` (hero + countdown + how-it-works), `names.html` (the searchable Rashi
   directory — the main feature), `suggest.html` (contribute form).
@@ -149,13 +152,13 @@ Warm, playful, family voice — "we", "our little one". Light and excited, never
 - Local dev server: `.claude/launch.json` runs `python3 -m http.server 8721` — use that (or any
   static server) rather than opening `index.html` via `file://`, since `names.html` fetches
   `assets/data/names.json` and `file://` fetches are blocked by the browser.
-- **`style.css` and `main.js` are linked with a `?v=N` cache-busting query string** in every
-  page's `<link>`/`<script>` tag. Python's `http.server` (and GitHub Pages) send no
-  `Cache-Control` header, so browsers cache these aggressively — edits can silently not show up,
-  even on a hard reload or in a brand-new tab, if the version query stays the same. **Bump `N` in
-  all three HTML files whenever you change `style.css` or `main.js`.** If a change still doesn't
-  show up while testing locally, try a fresh port for the dev server rather than assuming the
-  code is wrong.
+- **`style.css`, `critters.js` and `main.js` are all linked with a `?v=N` cache-busting query
+  string** in every page's `<link>`/`<script>` tag. Python's `http.server` (and GitHub Pages)
+  send no `Cache-Control` header, so browsers cache these aggressively — edits can silently not
+  show up, even on a hard reload or in a brand-new tab, if the version query stays the same.
+  **Bump `N` in all three HTML files whenever you change any of the three.** If a change still
+  doesn't show up while testing locally, try a fresh port for the dev server rather than assuming
+  the code is wrong.
 - After adding names to `names.json`, run `python3 scripts/generate_audio.py` (macOS only) to
   generate their pronunciation clips into `assets/audio/`. It skips names that already have a
   clip, so it's safe to re-run any time. Not strictly required — missing clips just fall back
