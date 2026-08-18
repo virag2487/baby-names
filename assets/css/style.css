@@ -222,28 +222,17 @@ body.accent-blush    .accent-wash { background: linear-gradient(180deg, var(--bl
   flex-wrap: wrap;
 }
 
-.stars {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-}
-.stars span {
-  position: absolute;
-  font-size: 1.1rem;
-  color: var(--gold);
-  opacity: 0.55;
-  animation: twinkle 3.2s ease-in-out infinite;
-}
-@keyframes twinkle {
-  0%, 100% { opacity: 0.25; transform: scale(0.9); }
-  50% { opacity: 0.75; transform: scale(1.1); }
-}
-
-/* animals peeking in from the hero corners */
+/* Decorative critters scattered through the hero. IMPORTANT: position these
+   with fixed pixel top/bottom offsets ONLY, never percentages — hero height
+   varies a lot with how many lines the copy wraps to (especially on
+   mobile), so a top:X% value that looks fine on desktop can drift straight
+   into the body text on a narrow screen. Horizontal (left/right) is safe as
+   a percentage since it never affects which text line something lands on.
+   Keep vertical offsets inside the hero's own top/bottom padding band —
+   that's the one zone guaranteed free of text at every viewport width. */
 .zoo-peek {
   position: absolute;
-  font-size: 3.4rem;
+  font-size: 2.8rem;
   line-height: 1;
   opacity: 0.9;
   filter: drop-shadow(0 6px 10px rgba(74, 59, 42, 0.15));
@@ -251,6 +240,15 @@ body.accent-blush    .accent-wash { background: linear-gradient(180deg, var(--bl
   z-index: 0;
   pointer-events: none;
 }
+.zoo-peek.sm { font-size: 1.5rem; opacity: 0.75; }
+/* NOTE on safe offsets: the CSS top/bottom value is where the emoji's box
+   STARTS — its own height (~= font-size) extends further in from there.
+   A hero's padding-top/bottom is the only zone guaranteed free of text, so
+   offset + font-size must stay under that padding, not just the offset
+   alone. At the sizes above (desktop): big ≈ 45px tall → keep top/bottom
+   offsets ≤ ~18px against a 64px padding, or ≤ ~10px against a 24-56px
+   padding; small ≈ 24px tall → offsets up to ~38px are fine. See the
+   inline styles in each hero for the values actually used. */
 @keyframes peek-bob {
   0%, 100% { transform: translateY(0) rotate(var(--peek-tilt, 0deg)); }
   50% { transform: translateY(-8px) rotate(var(--peek-tilt, 0deg)); }
@@ -631,16 +629,13 @@ body.accent-blush    .accent-wash { background: linear-gradient(180deg, var(--bl
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .stars span { animation: none; }
   .btn:hover { transform: none; }
   .zoo-peek { animation: none; }
   .rashi-head:hover .rashi-symbol { transform: none; }
 }
 
-/* smaller peeking animals on narrow screens, and hide the tiny sprinkle
-   layer entirely — hero text wraps to many lines on mobile so there's no
-   safe spot for it that won't collide with a word */
+/* smaller peeking critters on narrow screens */
 @media (max-width: 640px) {
-  .zoo-peek { font-size: 2rem; }
-  .stars { display: none; }
+  .zoo-peek { font-size: 1.9rem; }
+  .zoo-peek.sm { font-size: 1.1rem; }
 }
