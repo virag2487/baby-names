@@ -244,6 +244,17 @@ body.accent-blush    .accent-wash { background: linear-gradient(180deg, var(--bl
   pointer-events: none;
 }
 .zoo-peek.sm { font-size: 1.5rem; opacity: 0.75; }
+/* .ghost: for animals scattered freely through a section — including right
+   beside or behind a line of text, which .zoo-peek's siblings are never
+   allowed near. Opacity this low reads as a faint watermark rather than
+   clutter, so it's safe to position genuinely anywhere (that's the whole
+   point of this variant) without doing safe-zone math for it. No shadow,
+   no bob animation — it should sit quietly in the background, not draw
+   the eye the way the vivid hero animals do. */
+.zoo-peek.ghost { opacity: 0.16; filter: none; animation: none; }
+@media (max-width: 640px) {
+  .zoo-peek.ghost { opacity: 0.13; }
+}
 /* NOTE on safe offsets: the CSS top/bottom value is where the emoji's box
    STARTS — its own height (~= font-size) extends further in from there.
    A hero's padding-top/bottom is the only zone guaranteed free of text, so
@@ -350,7 +361,7 @@ body.accent-blush    .accent-wash { background: linear-gradient(180deg, var(--bl
 }
 
 /* -------------------- generic sections -------------------- */
-.section { padding: 56px 0; }
+.section { padding: 56px 0; position: relative; }
 .section-alt { background: var(--paper); }
 
 .grid-3 {

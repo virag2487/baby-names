@@ -56,32 +56,40 @@ have walked through" ambient background the whole theme is built around.
 ### Signature motifs
 - 🦁 lion brand mark. Paw print (🐾) replaces the old star as the eyebrow icon and section
   divider glyph.
-- **Two complementary mechanisms carry the "animals everywhere" theme — use the right one for
-  the job:**
-  - `.zoo-peek` (+ `.zoo-peek.sm` for smaller accents) — vivid animal/nature emoji *overlaid* on
-    a hero, scattered in a zigzag across the full width, gentle bob animation (`peek-bob`,
-    respects reduced-motion). Since this overlays real text, it's fragile by nature — see the
-    safe-offset comment directly above `@keyframes peek-bob` in `style.css` before touching
-    these. Short version: `.hero` carries **128px of top padding specifically so this layer has
-    real room to work with** (128px 0 64px; 96px top on mobile) — don't shrink that padding back
-    down without also re-checking every offset below it. Position with **fixed pixel offsets
-    only** (`top:6px; left:2%`), never a percentage for the vertical axis — hero height varies a
-    lot with how many lines the copy wraps to, so a `top:X%` that looks fine on desktop can land
-    on top of a word on a narrow screen. Horizontal (`left:X%`) is safe as a percentage — it
-    never changes which text line something lands on, only where along it. And the offset has to
-    account for the emoji's *own height* eating into the padding, not just the offset value —
-    a "big" emoji is ~45px tall, so against 128px padding, offsets up to ~65px are fine; a
-    "small" one is ~24px tall, offsets up to ~85px. Different animal set per page (index =
-    giraffe/monkey/parrot/elephant/bee/leaf/frog, names = zebra/peacock/turtle/lion/paw/leaf,
-    suggest = koala/fox/panda/leaf/paw) so the site doesn't feel repetitive.
-  - `.critter-strip` — the mechanism for getting animals **down the whole page**, not just the
-    hero. A plain flex row sitting in **normal document flow** between sections (after `</header>`,
-    between every `<section>`, before `<footer>`, occasionally inside a section like between the
-    toolbar and the list on `names.html`) — not absolutely positioned, so it is structurally
-    impossible for it to overlap text; it just takes up its own row of space, like a trail the
-    animals left between exhibits. This is the one to reach for by default when adding more
-    decoration somewhere — it needs zero safe-zone math. Each page has 2–3 strips with a
-    different mix of animals/leaves so scrolling down keeps surfacing new ones.
+- **Three complementary mechanisms carry the "animals scattered everywhere" theme.** History
+  here matters — this went through several rounds based on feedback, each round fixing a real
+  problem with the last, so don't casually revert to an earlier-sounding idea:
+  1. *"Animals only in the hero banner"* (first version) → user wanted them down the whole page.
+  2. *"Evenly-spaced strips between every section"* (second version, `.critter-strip`) → still
+     technically covered the page, but user correctly called this out as **not actually
+     random** — a repeating pattern at regular intervals reads as designed rhythm, not chance.
+  3. *Current version*: scattered, irregular placement **within** sections — sides, corners,
+     deliberately near/behind text — using `.ghost` opacity as the safety net instead of
+     avoiding text. This is the one to imitate when adding more.
+  - `.zoo-peek` (+ `.zoo-peek.sm` for smaller, `.zoo-peek.ghost` for near/over text) — the
+    workhorse class for all scattered decoration, vivid or faint. Vivid instances are *overlaid*
+    on real text, so they're fragile by nature — see the safe-offset comment above
+    `@keyframes peek-bob` in `style.css` before touching them. Short version: `.hero` carries
+    **128px of top padding specifically so this layer has real room to work with** (128px 0
+    64px; 96px top on mobile) — don't shrink that back down without re-checking every offset
+    below it. Position with **fixed pixel offsets only** on the vertical axis (`top:6px`), never
+    a percentage — hero/section height varies with how many lines the copy wraps to, so a
+    `top:X%` that looks fine on desktop can land on a word on a narrow screen. Horizontal
+    (`left:X%`) is safe as a percentage. And the offset has to account for the emoji's *own
+    height* eating into the padding, not just the offset value — a "big" emoji is ~45px tall, a
+    "small" one ~24px.
+  - `.zoo-peek.ghost` — opacity ~0.16 (0.13 mobile), no shadow, no animation. This is what makes
+    genuinely random placement possible: instead of computing a safe zone for every position,
+    ghost instances can go **anywhere in a section — including directly beside or behind a
+    paragraph** — because at that opacity they read as a faint watermark, not clutter. `.section`
+    and `.section-alt` are `position:relative` specifically so these can be scattered as their
+    direct children (siblings of `.container`), spanning the section's full height, not just its
+    padding. This is the default choice for filling in a section's interior.
+  - `.critter-strip` — a plain flex row in normal document flow (not absolutely positioned, so
+    structurally cannot overlap anything). Demoted to a light touch after round 2's feedback —
+    each page now keeps just **one**, right before the footer, as a closing flourish. Don't add
+    more of these as the primary way to cover a page; use scattered `.ghost`/`.zoo-peek` instead,
+    or the page starts reading as "strips at regular intervals" again.
 - Rounded pill buttons, soft card shadows, dashed-border circular "enclosure" badges.
 
 ### Reusable components
