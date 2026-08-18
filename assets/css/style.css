@@ -194,10 +194,13 @@ body.accent-blush    .accent-wash { background: linear-gradient(180deg, var(--bl
 
 /* -------------------- hero -------------------- */
 .hero {
-  padding: 64px 0 56px;
+  padding: 128px 0 64px;
   text-align: center;
   position: relative;
   overflow: hidden;
+}
+@media (max-width: 640px) {
+  .hero { padding-top: 96px; }
 }
 .hero .container { position: relative; z-index: 1; }
 .hero-kicker {
@@ -245,10 +248,16 @@ body.accent-blush    .accent-wash { background: linear-gradient(180deg, var(--bl
    STARTS — its own height (~= font-size) extends further in from there.
    A hero's padding-top/bottom is the only zone guaranteed free of text, so
    offset + font-size must stay under that padding, not just the offset
-   alone. At the sizes above (desktop): big ≈ 45px tall → keep top/bottom
-   offsets ≤ ~18px against a 64px padding, or ≤ ~10px against a 24-56px
-   padding; small ≈ 24px tall → offsets up to ~38px are fine. See the
-   inline styles in each hero for the values actually used. */
+   alone. `.hero`'s 128px top padding exists *specifically* to give this
+   layer real room to scatter in — a tight padding leaves so little slack
+   (a few px) that every animal ends up pinned to nearly the same height,
+   which just reads as "a line" even though the numbers technically
+   differ. At the sizes above (desktop): big ≈ 45px tall → top offsets up
+   to ~65px are safe against the 128px padding (plenty of room to stagger
+   high/low); small ≈ 24px tall → up to ~85px. Bottom padding is only
+   64px (or 24px on names.html/suggest.html's inline override) — keep
+   bottom-anchored placement light, or skip it and use the top band for
+   everything, which is what most heroes below do. */
 @keyframes peek-bob {
   0%, 100% { transform: translateY(0) rotate(var(--peek-tilt, 0deg)); }
   50% { transform: translateY(-8px) rotate(var(--peek-tilt, 0deg)); }
