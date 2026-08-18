@@ -160,10 +160,10 @@ async function initNamesDirectory() {
       card.className = "rashi-card" + (isOpen ? " open" : "");
       card.innerHTML = `
         <button class="rashi-head" aria-expanded="${isOpen ? "true" : "false"}">
-          <span class="rashi-symbol">${rashi.symbol}</span>
+          <span class="rashi-symbol" role="img" aria-label="${rashi.animalName}" title="${rashi.animalName} (${rashi.zodiac} ${rashi.symbol})">${rashi.animal}</span>
           <span class="rashi-titles">
             <span class="name">${rashi.name} <span style="color:var(--ink-soft); font-weight:600;">· ${rashi.gujarati}</span></span>
-            <span class="meta">${rashi.zodiac} sun-sign name, for reference — Rashi is set by the Moon</span>
+            <span class="meta">${rashi.animalName} enclosure · ${rashi.zodiac} sun-sign, for reference — Rashi is set by the Moon</span>
           </span>
           <span class="rashi-chevron">⌄</span>
         </button>

@@ -13,8 +13,8 @@ Baby due **January 2027**. No framework, no build step — plain HTML/CSS/JS tha
 serves directly.
 
 ## Golden rules
-- **Gender-neutral pastel palette** — nothing "blue for boy / pink for girl". Moon & stars motif
-  throughout (Rashi = Moon-sign, so it fits both literally and cutely).
+- **Gender-neutral pastel palette** — nothing "blue for boy / pink for girl". Zoo/safari theme
+  throughout: each Rashi is illustrated as its zodiac animal's "enclosure".
 - **Use relative links only** (`href="names.html"`, `assets/css/style.css`) — never
   leading-slash absolute paths — the site is served from the `/baby-names/` sub-path.
 - **Placeholders in `[square brackets]`** for anything unknown (family name, exact due date).
@@ -29,35 +29,54 @@ serves directly.
 
 ## Design system
 
-### Palette (pastel, gender-neutral)
+### Palette (pastel safari, gender-neutral)
 | Role | Hex |
 |------|-----|
-| Cream (bg) | `#FFFBF3` |
-| Paper (cards) | `#FFFFFF` |
-| Ink (text) | `#4A4458` · soft `#8D8496` |
-| Gold accent (moon/stars) | `#E7B34C` |
-| Mint | `#CFEEE1` · deep `#7FC7A8` |
-| Lavender | `#E4D9F7` · deep `#A98DDB` |
-| Butter | `#FDECA6` · deep `#E4BC3D` |
-| Peach | `#FCDAC7` · deep `#EFA37E` |
-| Sky | `#CDE9F6` · deep `#7CBBDE` |
-| Blush | `#F7D3DC` · deep `#E093A5` |
+| Cream (bg) | `#FBF3DE` |
+| Paper (cards) | `#FFFEFA` |
+| Ink (text) | `#4A3B2A` · soft `#8C7A63` |
+| Gold accent (sun/savanna) | `#E0A83C` |
+| Wood (signpost/borders) | `#8B5E3C` · deep `#5E3D24` |
+| Mint (leaf green) | `#CFE8C0` · deep `#5F9E52` |
+| Lavender (jungle orchid) | `#E3D3F0` · deep `#A67FC9` |
+| Butter (savanna yellow) | `#FCE7A0` · deep `#E0AE2E` |
+| Peach (terracotta/tan) | `#F5CBA3` · deep `#D9873E` |
+| Sky (watering-hole blue) | `#CDE9F0` · deep `#5FA9C4` |
+| Blush (flamingo pink) | `#F9C7D6` · deep `#E0779A` |
 
 Each page picks one accent wash via `<body class="accent-...">` (mint / lavender / butter /
 peach / sky / blush) — see `index.html` = lavender, `names.html` = mint, `suggest.html` = butter.
+A faint site-wide paw-print texture sits on `body` (data-URI SVG, ~5% opacity) — the "animals
+have walked through" ambient background the whole theme is built around.
 
 ### Typography (Google Fonts)
 - Display: **Fredoka** (rounded, friendly — headings, buttons, name cards)
 - Body / UI: **Nunito**
 
 ### Signature motifs
-- Crescent moon 🌙 brand mark + twinkling star (✦/✧) SVG/emoji sprinkles in hero sections
-  (`.stars span`, respects reduced-motion).
-- Rounded pill buttons, soft card shadows, circular Rashi zodiac-symbol badges.
+- 🦁 lion brand mark. Paw print (🐾) replaces the old star as the eyebrow icon and section
+  divider glyph.
+- `.zoo-peek` — big (3.4rem desktop / 2rem mobile) animal emoji "peeking" from each hero's four
+  corners, gentle bob animation (`peek-bob`, respects reduced-motion). **Position with fixed
+  pixel offsets** (`top:14px; left:10px` etc.), never percentages — hero height varies a lot
+  with how many lines the copy wraps to (especially on mobile), so a `top:X%` value that looks
+  right on desktop can drift straight into the body text on a narrow screen. Different animal
+  set per page (index = giraffe/monkey/parrot/elephant, names = zebra/peacock/turtle/lion,
+  suggest = koala/fox/panda) so the site doesn't feel repetitive.
+- `.stars` — small emoji sprinkles (leaf/bee/paw) in the hero background, same twinkle animation
+  as before. **Hidden entirely below 640px** (`@media (max-width:640px) { .stars {display:none} }`)
+  since there's no position on a tall, wrapped mobile hero that's safely clear of every line.
+- Rounded pill buttons, soft card shadows, dashed-border circular "enclosure" badges.
 
 ### Reusable components
 - `.rashi-card` accordion (see `names.html` + `assets/js/main.js`) — one per Rashi, holds
-  boy/girl name-card grids, a starting-letters hint row, and empty-state prompts.
+  boy/girl name-card grids, a starting-letters hint row, and empty-state prompts. The
+  `.rashi-symbol` badge shows `rashi.animal` (a big emoji) inside a dashed wood-coloured ring;
+  background colour cycles through the 6 accent tones via `nth-of-type(6n+1..6)` so the 12
+  "enclosures" read as visually distinct habitats. Zodiac animal mapping (chosen for fit, not
+  all literal — see PROJECT-CONTEXT.md): Mesh=Ram, Vrushabh=Bull, Mithun=Monkey, Kark=Crab,
+  Sinh=Lion, Kanya=Peacock, Tula=Flamingo, Vrushik=Scorpion, Dhanu=Horse, Makar=Crocodile,
+  Kumbh=Elephant, Meen=Fish.
 - `.name-card` with a coloured `.tag` chip: `tag-classic` (sky), `tag-modern` (mint),
   `tag-virtue` (lavender), `tag-tirthankarainspired` (peach), `tag-familyfavourite` (blush).
 - `.pronounce-btn` — the 🔊 icon on each name card. Plays a pre-recorded clip from
@@ -78,8 +97,9 @@ Warm, playful, family voice — "we", "our little one". Light and excited, never
 ## Content notes
 - Names data source: `assets/data/names.json`. Each Rashi entry has `id`, `name`, `gujarati`,
   `zodiac` (Western sun-sign, shown only as a familiar reference point — **not** how Rashi
-  actually works), `symbol` (emoji), `letters` (starting sounds), and `boys[]` / `girls[]` arrays
-  of `{ name, meaning, tag, note? }`.
+  actually works), `symbol` (astrological glyph, ♈ etc. — kept in the data but not displayed;
+  `animal`/`animalName` are what's actually shown), `animal` (emoji) + `animalName` (e.g. "Ram"),
+  `letters` (starting sounds), and `boys[]` / `girls[]` arrays of `{ name, meaning, tag, note? }`.
 - Tags in use: `Classic`, `Modern`, `Virtue`, `Tirthankara-inspired`, `Family favourite ⭐`
   (the last marks names already on the family's own shortlist — Pahal, Shyla, Siya).
 - The Rashi → starting-letter mapping came from the family's own spreadsheet/pandit chart —
@@ -100,6 +120,13 @@ Warm, playful, family voice — "we", "our little one". Light and excited, never
 - Local dev server: `.claude/launch.json` runs `python3 -m http.server 8721` — use that (or any
   static server) rather than opening `index.html` via `file://`, since `names.html` fetches
   `assets/data/names.json` and `file://` fetches are blocked by the browser.
+- **`style.css` and `main.js` are linked with a `?v=N` cache-busting query string** in every
+  page's `<link>`/`<script>` tag. Python's `http.server` (and GitHub Pages) send no
+  `Cache-Control` header, so browsers cache these aggressively — edits can silently not show up,
+  even on a hard reload or in a brand-new tab, if the version query stays the same. **Bump `N` in
+  all three HTML files whenever you change `style.css` or `main.js`.** If a change still doesn't
+  show up while testing locally, try a fresh port for the dev server rather than assuming the
+  code is wrong.
 - After adding names to `names.json`, run `python3 scripts/generate_audio.py` (macOS only) to
   generate their pronunciation clips into `assets/audio/`. It skips names that already have a
   clip, so it's safe to re-run any time. Not strictly required — missing clips just fall back

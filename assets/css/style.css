@@ -1,32 +1,34 @@
 /* =========================================================
    Baby Names Site — shared design system
-   Palette: gender-neutral pastels, moon/stars motif
-   (Rashi = Moon sign, so the "little moon" theme ties in)
+   Theme: pastel zoo / safari — each Rashi is a little "habitat"
+   for its zodiac animal. Playful, warm, still soft & gender-neutral.
    ========================================================= */
 
 :root {
   /* base */
-  --cream: #FFFBF3;
-  --paper: #FFFFFF;
-  --ink: #4A4458;
-  --ink-soft: #8D8496;
+  --cream: #FBF3DE;
+  --paper: #FFFEFA;
+  --ink: #4A3B2A;
+  --ink-soft: #8C7A63;
 
-  /* pastel family (light / deep) */
-  --mint: #CFEEE1;      --mint-deep: #7FC7A8;
-  --lavender: #E4D9F7;  --lavender-deep: #A98DDB;
-  --butter: #FDECA6;    --butter-deep: #E4BC3D;
-  --peach: #FCDAC7;     --peach-deep: #EFA37E;
-  --sky: #CDE9F6;       --sky-deep: #7CBBDE;
-  --blush: #F7D3DC;     --blush-deep: #E093A5;
+  /* pastel family (light / deep) — jungle green, savanna yellow,
+     terracotta, sky blue, flamingo pink, orchid purple */
+  --mint: #CFE8C0;      --mint-deep: #5F9E52;   /* leaf green */
+  --lavender: #E3D3F0;  --lavender-deep: #A67FC9; /* jungle orchid */
+  --butter: #FCE7A0;    --butter-deep: #E0AE2E;  /* savanna yellow */
+  --peach: #F5CBA3;     --peach-deep: #D9873E;   /* terracotta / tan */
+  --sky: #CDE9F0;       --sky-deep: #5FA9C4;     /* watering-hole blue */
+  --blush: #F9C7D6;     --blush-deep: #E0779A;   /* flamingo pink */
 
-  --gold: #E7B34C;
+  --gold: #E0A83C;
+  --wood: #8B5E3C;      --wood-deep: #5E3D24;   /* signpost brown */
 
   --radius-sm: 10px;
   --radius-md: 16px;
   --radius-lg: 26px;
 
-  --shadow: 0 10px 30px rgba(74, 68, 88, 0.10);
-  --shadow-sm: 0 4px 14px rgba(74, 68, 88, 0.08);
+  --shadow: 0 10px 30px rgba(74, 59, 42, 0.12);
+  --shadow-sm: 0 4px 14px rgba(74, 59, 42, 0.09);
 
   --font-display: "Fredoka", "Baloo 2", system-ui, sans-serif;
   --font-body: "Nunito", system-ui, -apple-system, sans-serif;
@@ -35,9 +37,13 @@
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 
+/* a faint site-wide paw-print trail — animals have "walked through" */
 body {
   margin: 0;
-  background: var(--cream);
+  background-color: var(--cream);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='%238B5E3C' fill-opacity='0.05' transform='translate(20 24) rotate(-18)'%3E%3Cellipse cx='10' cy='22' rx='9' ry='11'/%3E%3Cellipse cx='-6' cy='6' rx='4' ry='5.5'/%3E%3Cellipse cx='6' cy='0' rx='4.2' ry='5.5'/%3E%3Cellipse cx='18' cy='0' rx='4.2' ry='5.5'/%3E%3Cellipse cx='27' cy='7' rx='4' ry='5.5'/%3E%3C/g%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 130px 130px;
   color: var(--ink);
   font-family: var(--font-body);
   line-height: 1.6;
@@ -89,7 +95,7 @@ body.accent-blush    .accent-wash { background: linear-gradient(180deg, var(--bl
   color: var(--ink-soft);
   margin-bottom: 0.6em;
 }
-.eyebrow::before { content: "☾"; color: var(--gold); font-size: 1rem; }
+.eyebrow::before { content: "🐾"; font-size: 0.9rem; }
 
 .divider {
   display: flex;
@@ -116,7 +122,7 @@ body.accent-blush    .accent-wash { background: linear-gradient(180deg, var(--bl
   z-index: 50;
   background: rgba(255, 251, 243, 0.92);
   backdrop-filter: blur(8px);
-  border-bottom: 1px solid rgba(74, 68, 88, 0.08);
+  border-bottom: 1px solid rgba(74, 59, 42, 0.08);
 }
 .site-nav .container {
   display: flex;
@@ -183,7 +189,7 @@ body.accent-blush    .accent-wash { background: linear-gradient(180deg, var(--bl
     display: none;
   }
   .nav-links.open { display: flex; }
-  .nav-links a { display: block; padding: 12px 4px; border-bottom: 1px solid rgba(74,68,88,0.08); }
+  .nav-links a { display: block; padding: 12px 4px; border-bottom: 1px solid rgba(74,59,42,0.08); }
 }
 
 /* -------------------- hero -------------------- */
@@ -232,6 +238,22 @@ body.accent-blush    .accent-wash { background: linear-gradient(180deg, var(--bl
 @keyframes twinkle {
   0%, 100% { opacity: 0.25; transform: scale(0.9); }
   50% { opacity: 0.75; transform: scale(1.1); }
+}
+
+/* animals peeking in from the hero corners */
+.zoo-peek {
+  position: absolute;
+  font-size: 3.4rem;
+  line-height: 1;
+  opacity: 0.9;
+  filter: drop-shadow(0 6px 10px rgba(74, 59, 42, 0.15));
+  animation: peek-bob 4.5s ease-in-out infinite;
+  z-index: 0;
+  pointer-events: none;
+}
+@keyframes peek-bob {
+  0%, 100% { transform: translateY(0) rotate(var(--peek-tilt, 0deg)); }
+  50% { transform: translateY(-8px) rotate(var(--peek-tilt, 0deg)); }
 }
 
 /* -------------------- buttons -------------------- */
@@ -328,7 +350,7 @@ body.accent-blush    .accent-wash { background: linear-gradient(180deg, var(--bl
   width: 100%;
   padding: 13px 18px 13px 42px;
   border-radius: 999px;
-  border: 2px solid rgba(74,68,88,0.12);
+  border: 2px solid rgba(74,59,42,0.12);
   background: var(--paper);
   font-family: var(--font-body);
   font-size: 1rem;
@@ -392,16 +414,27 @@ body.accent-blush    .accent-wash { background: linear-gradient(180deg, var(--bl
   font-family: var(--font-body);
 }
 .rashi-symbol {
-  font-size: 1.7rem;
-  width: 46px;
-  height: 46px;
+  font-size: 1.9rem;
+  width: 58px;
+  height: 58px;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
   background: var(--mint);
+  border: 3px dashed var(--wood);
   flex-shrink: 0;
+  transition: transform 0.2s ease;
 }
+.rashi-head:hover .rashi-symbol { transform: rotate(-6deg) scale(1.06); }
+
+/* each "enclosure" gets a different habitat colour, zoo-map style */
+.rashi-card:nth-of-type(6n+1) .rashi-symbol { background: var(--mint); }
+.rashi-card:nth-of-type(6n+2) .rashi-symbol { background: var(--butter); }
+.rashi-card:nth-of-type(6n+3) .rashi-symbol { background: var(--sky); }
+.rashi-card:nth-of-type(6n+4) .rashi-symbol { background: var(--blush); }
+.rashi-card:nth-of-type(6n+5) .rashi-symbol { background: var(--peach); }
+.rashi-card:nth-of-type(6n+6) .rashi-symbol { background: var(--lavender); }
 .rashi-titles { flex: 1; }
 .rashi-titles .name {
   font-family: var(--font-display);
@@ -459,7 +492,7 @@ body.accent-blush    .accent-wash { background: linear-gradient(180deg, var(--bl
 }
 
 .name-card {
-  border: 1.5px solid rgba(74,68,88,0.10);
+  border: 1.5px solid rgba(74,59,42,0.10);
   border-radius: var(--radius-md);
   padding: 14px 16px;
 }
@@ -556,7 +589,7 @@ body.accent-blush    .accent-wash { background: linear-gradient(180deg, var(--bl
   width: 100%;
   padding: 12px 14px;
   border-radius: var(--radius-sm);
-  border: 2px solid rgba(74,68,88,0.14);
+  border: 2px solid rgba(74,59,42,0.14);
   font-family: var(--font-body);
   font-size: 1rem;
   background: var(--cream);
@@ -600,4 +633,14 @@ body.accent-blush    .accent-wash { background: linear-gradient(180deg, var(--bl
   html { scroll-behavior: auto; }
   .stars span { animation: none; }
   .btn:hover { transform: none; }
+  .zoo-peek { animation: none; }
+  .rashi-head:hover .rashi-symbol { transform: none; }
+}
+
+/* smaller peeking animals on narrow screens, and hide the tiny sprinkle
+   layer entirely — hero text wraps to many lines on mobile so there's no
+   safe spot for it that won't collide with a word */
+@media (max-width: 640px) {
+  .zoo-peek { font-size: 2rem; }
+  .stars { display: none; }
 }
