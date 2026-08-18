@@ -75,12 +75,10 @@ without re-asking everything.
   Soumya/kn_IN as other Indian-language options).
 
 ## Still open / things to fill in
-- `[Family]` placeholder in `index.html`'s hero kicker — swap for the actual family/surname
-  name once decided.
-- Exact due date is unknown (only "January 2027" was given) — `index.html`'s countdown script
-  currently targets `2027-01-15` as a placeholder midpoint. Update
-  `startCountdown("countdown", new Date("2027-01-15T00:00:00"))` in `index.html` once (or if)
-  a more specific date is known — or leave as-is, since the exact day is private anyway.
+- Family/surname is settled: "Baby Shah" (`index.html`'s hero kicker).
+- Due date is settled: **~January 13, 2027** — `index.html`'s countdown targets
+  `2027-01-13T00:00:00`. If this shifts, that's the one line to update
+  (`startCountdown("countdown", new Date(...))` near the end of `index.html`).
 - Names list is intentionally starter-sized (~90 names across 12 Rashis × 2 genders, uneven
   coverage — some Rashi/gender combos only have 2 names). It's designed to grow via family
   contribution once `suggest.html` is wired up, or via direct edits to `names.json` (+ re-run

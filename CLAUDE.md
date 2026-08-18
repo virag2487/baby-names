@@ -74,7 +74,8 @@ have walked through" ambient background the whole theme is built around.
      animated **in place** — bounce, sway, wiggle, blink — never travelling. This is the one to
      imitate.
   - **`assets/js/critters.js`** holds the `CRITTERS` object — one hand-coded inline-SVG string
-    per animal (currently: bird, butterfly, bee, giraffe, elephant, monkey, fox, panda), original
+    per animal (currently sixteen: bird, butterfly, bee, giraffe, elephant, monkey, fox, panda,
+    lion, zebra, owl, koala, turtle, flamingo, rabbit, squirrel), original
     art in a consistent "kawaii mascot" style (rounded head, big eyes with a highlight dot, blush
     cheeks, soft drop shadow) using the site's own palette hex values. This exists specifically
     because the user asked for "cute animal stickers" instead of emoji, and downloading stock
@@ -84,6 +85,14 @@ have walked through" ambient background the whole theme is built around.
     matching markup once. To add a new animal: add a `CRITTERS.name` entry following the same
     proportions (head circle roughly `cx=60 cy=62 r=34-36` in a `0 0 120 120` viewBox) and give
     it a `<g class="critter-eyes">` group so the shared blink animation picks it up.
+    **Two pitfalls the first zebra draft hit, both silent (no error, it just doesn't look
+    right):** (1) draw the head circle *before* appendages like ears/horns in source order —
+    later elements paint on top, so a head circle added after the ears will cover them, unless
+    the ear and head fills happen to be the same colour (as with e.g. panda/monkey, which is why
+    that ordering worked there and not for zebra). (2) never fill a light part of an animal with
+    the site's own `--cream` hex value (`#FBF3DE`) — it's exactly the page background colour, so
+    that part of the critter goes invisible. Use plain white or add a thin contrasting stroke
+    instead.
   - **Placement is two mechanisms**, same safety split as the animal-scatter rounds taught:
     `.critter-row` is a plain flex row in **normal document flow** (between/within sections) —
     structurally can't overlap text, use this by default. `.critter-peek` is absolutely
