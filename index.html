@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/css/style.css?v=8" />
+  <link rel="stylesheet" href="assets/css/style.css?v=9" />
 </head>
 <body class="accent-lavender">
 
@@ -26,17 +26,10 @@
   </nav>
 
   <header class="hero accent-wash">
-    <span class="zoo-peek" aria-hidden="true" style="top:6px; left:2%; --peek-tilt:-14deg;">🦒</span>
-    <span class="zoo-peek sm" aria-hidden="true" style="top:58px; left:14%; --peek-tilt:6deg; animation-delay:1.3s;">🐝</span>
-    <span class="zoo-peek" aria-hidden="true" style="top:26px; left:27%; --peek-tilt:10deg; animation-delay:0.6s;">🐵</span>
-    <span class="zoo-peek sm" aria-hidden="true" style="top:4px; left:40%; --peek-tilt:20deg; animation-delay:2.1s;">🌿</span>
-    <span class="zoo-peek" aria-hidden="true" style="top:48px; left:53%; --peek-tilt:-9deg; animation-delay:0.2s;">🦜</span>
-    <span class="zoo-peek sm" aria-hidden="true" style="top:16px; left:66%; --peek-tilt:-15deg; animation-delay:1.7s;">🍃</span>
-    <span class="zoo-peek" aria-hidden="true" style="top:40px; left:79%; --peek-tilt:8deg; animation-delay:1s;">🐘</span>
-    <span class="zoo-peek sm" aria-hidden="true" style="top:62px; left:91%; --peek-tilt:-6deg; animation-delay:2.4s;">🐸</span>
-    <span class="zoo-peek ghost" aria-hidden="true" style="top:42%; left:5%; --peek-tilt:-10deg;">🦔</span>
-    <span class="zoo-peek ghost" aria-hidden="true" style="top:58%; right:4%; --peek-tilt:12deg;">🐌</span>
-    <span class="zoo-peek ghost" aria-hidden="true" style="top:74%; left:9%; --peek-tilt:8deg;">🍂</span>
+    <span class="flyer" aria-hidden="true" style="top:6px; animation-duration:23s; animation-delay:0s;"><span class="flap">🦜</span></span>
+    <span class="flyer" aria-hidden="true" style="top:30px; animation-duration:18s; animation-delay:5s;"><span class="flap">🦋</span></span>
+    <span class="flyer" aria-hidden="true" style="top:54px; animation-duration:27s; animation-delay:11s;"><span class="flap">🐝</span></span>
+    <span class="walker" aria-hidden="true" style="bottom:2px; animation-duration:21s; animation-delay:3s;"><span class="step">🦒</span></span>
     <div class="container">
       <div class="hero-kicker">Baby Shah · Arriving January 2027</div>
       <h1>Help us name our little one 🐾</h1>
@@ -60,12 +53,12 @@
     </div>
   </header>
 
+  <div class="critter-lane" aria-hidden="true">
+    <span class="flyer" style="top:4px; animation-duration:20s; animation-delay:0s;"><span class="flap">🦉</span></span>
+    <span class="walker" style="bottom:2px; animation-duration:24s; animation-delay:4s;"><span class="step">🐒</span></span>
+  </div>
+
   <section class="section">
-    <span class="zoo-peek ghost" aria-hidden="true" style="top:6%; left:2%; --peek-tilt:-9deg;">🦉</span>
-    <span class="zoo-peek ghost" aria-hidden="true" style="top:9%; right:3%; --peek-tilt:11deg;">🐿️</span>
-    <span class="zoo-peek ghost" aria-hidden="true" style="top:55%; left:1.5%; --peek-tilt:14deg;">🦋</span>
-    <span class="zoo-peek ghost" aria-hidden="true" style="top:88%; right:2%; --peek-tilt:-7deg;">🐝</span>
-    <span class="zoo-peek sm" aria-hidden="true" style="top:2%; left:46%; --peek-tilt:16deg;">🐒</span>
     <div class="container">
       <div class="section-head">
         <div class="eyebrow">How this works</div>
@@ -92,11 +85,12 @@
     </div>
   </section>
 
+  <div class="critter-lane" aria-hidden="true">
+    <span class="flyer" style="top:6px; animation-duration:25s; animation-delay:2s;"><span class="flap">🦩</span></span>
+    <span class="walker" style="bottom:2px; animation-duration:19s; animation-delay:7s;"><span class="step">🦓</span></span>
+  </div>
+
   <section class="section section-alt">
-    <span class="zoo-peek ghost" aria-hidden="true" style="top:10%; left:3%; --peek-tilt:-12deg;">🦎</span>
-    <span class="zoo-peek ghost" aria-hidden="true" style="top:40%; right:2.5%; --peek-tilt:9deg;">🐞</span>
-    <span class="zoo-peek ghost" aria-hidden="true" style="top:78%; left:6%; --peek-tilt:13deg;">🐌</span>
-    <span class="zoo-peek sm" aria-hidden="true" style="top:5%; right:38%; --peek-tilt:-15deg;">🦓</span>
     <div class="container">
       <div class="section-head">
         <div class="eyebrow">A note on the names</div>
@@ -112,12 +106,9 @@
     </div>
   </section>
 
-  <div class="critter-strip" aria-hidden="true">
-    <span>🦁</span>
-    <span>🐘</span>
-    <span>🌴</span>
-    <span>🦚</span>
-    <span>🐾</span>
+  <div class="critter-lane tall" aria-hidden="true">
+    <span class="flyer" style="top:8px; animation-duration:22s; animation-delay:1s;"><span class="flap">🦚</span></span>
+    <span class="walker" style="bottom:3px; animation-duration:26s; animation-delay:6s;"><span class="step">🐘</span></span>
   </div>
 
   <footer class="site-footer">
@@ -126,7 +117,7 @@
     <p><a href="names.html">Browse names</a> · <a href="suggest.html">Suggest a name</a></p>
   </footer>
 
-  <script src="assets/js/main.js?v=8"></script>
+  <script src="assets/js/main.js?v=9"></script>
   <script>
     // Due date shown is a placeholder mid-point (exact day is private/unknown) — edit in CLAUDE.md instructions.
     startCountdown("countdown", new Date("2027-01-15T00:00:00"));

@@ -56,40 +56,45 @@ have walked through" ambient background the whole theme is built around.
 ### Signature motifs
 - 🦁 lion brand mark. Paw print (🐾) replaces the old star as the eyebrow icon and section
   divider glyph.
-- **Three complementary mechanisms carry the "animals scattered everywhere" theme.** History
-  here matters — this went through several rounds based on feedback, each round fixing a real
-  problem with the last, so don't casually revert to an earlier-sounding idea:
-  1. *"Animals only in the hero banner"* (first version) → user wanted them down the whole page.
-  2. *"Evenly-spaced strips between every section"* (second version, `.critter-strip`) → still
-     technically covered the page, but user correctly called this out as **not actually
-     random** — a repeating pattern at regular intervals reads as designed rhythm, not chance.
-  3. *Current version*: scattered, irregular placement **within** sections — sides, corners,
-     deliberately near/behind text — using `.ghost` opacity as the safety net instead of
-     avoiding text. This is the one to imitate when adding more.
-  - `.zoo-peek` (+ `.zoo-peek.sm` for smaller, `.zoo-peek.ghost` for near/over text) — the
-    workhorse class for all scattered decoration, vivid or faint. Vivid instances are *overlaid*
-    on real text, so they're fragile by nature — see the safe-offset comment above
-    `@keyframes peek-bob` in `style.css` before touching them. Short version: `.hero` carries
-    **128px of top padding specifically so this layer has real room to work with** (128px 0
-    64px; 96px top on mobile) — don't shrink that back down without re-checking every offset
-    below it. Position with **fixed pixel offsets only** on the vertical axis (`top:6px`), never
-    a percentage — hero/section height varies with how many lines the copy wraps to, so a
-    `top:X%` that looks fine on desktop can land on a word on a narrow screen. Horizontal
-    (`left:X%`) is safe as a percentage. And the offset has to account for the emoji's *own
-    height* eating into the padding, not just the offset value — a "big" emoji is ~45px tall, a
-    "small" one ~24px.
-  - `.zoo-peek.ghost` — opacity ~0.16 (0.13 mobile), no shadow, no animation. This is what makes
-    genuinely random placement possible: instead of computing a safe zone for every position,
-    ghost instances can go **anywhere in a section — including directly beside or behind a
-    paragraph** — because at that opacity they read as a faint watermark, not clutter. `.section`
-    and `.section-alt` are `position:relative` specifically so these can be scattered as their
-    direct children (siblings of `.container`), spanning the section's full height, not just its
-    padding. This is the default choice for filling in a section's interior.
-  - `.critter-strip` — a plain flex row in normal document flow (not absolutely positioned, so
-    structurally cannot overlap anything). Demoted to a light touch after round 2's feedback —
-    each page now keeps just **one**, right before the footer, as a closing flourish. Don't add
-    more of these as the primary way to cover a page; use scattered `.ghost`/`.zoo-peek` instead,
-    or the page starts reading as "strips at regular intervals" again.
+- **Live, moving animals — `.critter-lane` — is the theme's main mechanism.** This is the
+  fourth iteration; each earlier one was tried, shown to the user, and replaced based on
+  specific feedback. Know this history before changing it, so you don't casually re-introduce
+  an already-rejected idea:
+  1. *Static animals only in the hero* → user wanted them down the whole page.
+  2. *Evenly-spaced static strips between every section* (`.critter-strip` full of plain
+     `<span>`s) → covered the page, but read as a designed rhythm, not chance — correctly
+     rejected as "not actually random."
+  3. *Static animals scattered at irregular positions within each section*, using a low-opacity
+     `.ghost` variant so they could sit near/behind text safely → still static. User clarified
+     what they'd actually wanted from the start: **real movement** — "light animation of
+     animals, birds etc." — not clever placement of motionless icons.
+  4. *Current version*: animals that fly and walk **across** the page inside `.critter-lane`
+     bands. This is the one to imitate.
+  - `.critter-lane` — a fixed-height (`74px`, `56px` mobile; `.tall` variant `96px`/`72px`),
+    `overflow:hidden` band in **normal document flow** (never absolutely overlaid on text) —
+    structurally impossible to cover a word regardless of how far something inside it travels.
+    One lane sits after the hero, one between/within each major section, one before the footer
+    on every page — this is what makes the motion feel like it's "throughout the page," not just
+    the banner.
+  - `.flyer` (+ nested `.flap` span) — travels the lane's full width left→right on an infinite
+    loop (`fly-across`, animates `left` from `-12%` to `112%` plus a wandering vertical drift);
+    `.flap` adds an independent, faster wing-flutter rotation on top, so the two motions combine
+    into a natural-looking flight. `.walker` (+ nested `.step`) is the ground equivalent —
+    travels in a straight line along the lane's bottom edge, `.step` adds a quick footstep
+    bounce. Only `top`/`bottom` need setting per instance (fixed px, safe-zone rules below still
+    apply) plus `animation-duration`/`animation-delay` for variety — horizontal position is
+    entirely driven by the animation, not set per instance.
+  - The hero has its own two lanes built into its padding rather than a separate element: a
+    **sky lane** using the top padding (several `.flyer`s) and, where there's room, a **ground
+    lane** using the bottom padding (one `.walker`). `.hero` carries **128px of top padding
+    specifically so the sky lane has real room to work with** (128px 0 64px; 96px top on
+    mobile) — don't shrink that without rechecking every `top` offset below it. Same safe-zone
+    math as before: offset + the creature's own height must stay inside the padding — a flyer
+    is ~32px tall (1.5rem mobile), a walker ~37px (1.8rem mobile) — and `names.html`/
+    `suggest.html` override the hero's bottom padding down to `24px`, too tight for a ground
+    walker, so those two heroes are sky-only.
+  - `prefers-reduced-motion: reduce` stops every animation and parks each creature at a fixed
+    `left:42%` rather than hiding them, so the theme still reads even with motion off.
 - Rounded pill buttons, soft card shadows, dashed-border circular "enclosure" badges.
 
 ### Reusable components

@@ -225,82 +225,83 @@ body.accent-blush    .accent-wash { background: linear-gradient(180deg, var(--bl
   flex-wrap: wrap;
 }
 
-/* Decorative critters scattered through the hero. IMPORTANT: position these
-   with fixed pixel top/bottom offsets ONLY, never percentages — hero height
-   varies a lot with how many lines the copy wraps to (especially on
-   mobile), so a top:X% value that looks fine on desktop can drift straight
-   into the body text on a narrow screen. Horizontal (left/right) is safe as
-   a percentage since it never affects which text line something lands on.
-   Keep vertical offsets inside the hero's own top/bottom padding band —
-   that's the one zone guaranteed free of text at every viewport width. */
-.zoo-peek {
-  position: absolute;
-  font-size: 2.8rem;
-  line-height: 1;
-  opacity: 0.9;
-  filter: drop-shadow(0 6px 10px rgba(74, 59, 42, 0.15));
-  animation: peek-bob 4.5s ease-in-out infinite;
-  z-index: 0;
+/* =========================================================
+   Animated critter lanes — the whole "zoo" mechanism.
+   Live animals moving through the page: birds/butterflies flying across,
+   animals walking along the ground. Each lane is an ordinary element in
+   normal document flow (never absolutely overlaid on text), fixed height,
+   overflow:hidden — so no matter how far a creature travels, it is
+   structurally impossible for it to cover a word. Use `.critter-lane` for
+   a full-width band between/within sections; the hero has its own two
+   built-in lanes (sky + ground) using its existing safe padding bands.
+   ========================================================= */
+.critter-lane {
+  position: relative;
+  height: 74px;
+  overflow: hidden;
   pointer-events: none;
 }
-.zoo-peek.sm { font-size: 1.5rem; opacity: 0.75; }
-/* .ghost: for animals scattered freely through a section — including right
-   beside or behind a line of text, which .zoo-peek's siblings are never
-   allowed near. Opacity this low reads as a faint watermark rather than
-   clutter, so it's safe to position genuinely anywhere (that's the whole
-   point of this variant) without doing safe-zone math for it. No shadow,
-   no bob animation — it should sit quietly in the background, not draw
-   the eye the way the vivid hero animals do. */
-.zoo-peek.ghost { opacity: 0.16; filter: none; animation: none; }
+.critter-lane.tall { height: 96px; }
 @media (max-width: 640px) {
-  .zoo-peek.ghost { opacity: 0.13; }
-}
-/* NOTE on safe offsets: the CSS top/bottom value is where the emoji's box
-   STARTS — its own height (~= font-size) extends further in from there.
-   A hero's padding-top/bottom is the only zone guaranteed free of text, so
-   offset + font-size must stay under that padding, not just the offset
-   alone. `.hero`'s 128px top padding exists *specifically* to give this
-   layer real room to scatter in — a tight padding leaves so little slack
-   (a few px) that every animal ends up pinned to nearly the same height,
-   which just reads as "a line" even though the numbers technically
-   differ. At the sizes above (desktop): big ≈ 45px tall → top offsets up
-   to ~65px are safe against the 128px padding (plenty of room to stagger
-   high/low); small ≈ 24px tall → up to ~85px. Bottom padding is only
-   64px (or 24px on names.html/suggest.html's inline override) — keep
-   bottom-anchored placement light, or skip it and use the top band for
-   everything, which is what most heroes below do. */
-@keyframes peek-bob {
-  0%, 100% { transform: translateY(0) rotate(var(--peek-tilt, 0deg)); }
-  50% { transform: translateY(-8px) rotate(var(--peek-tilt, 0deg)); }
+  .critter-lane { height: 56px; }
+  .critter-lane.tall { height: 72px; }
 }
 
-/* Critter strips — the mechanism for getting animals distributed all the
-   way down the page, not just in the hero. Deliberately NOT absolutely
-   positioned: these are ordinary elements sitting in the normal document
-   flow between sections, so there is no way for them to ever overlap
-   text — they just take up their own row of space, like a little trail
-   the animals left between exhibits. Sprinkle a few of these between
-   sections on every page rather than relying on the hero to carry the
-   whole theme. */
-.critter-strip {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 30px;
-  padding: 6px 20px 26px;
+/* .flyer travels the lane's full width on a wandering flight path (its own
+   keyframe drifts up/down); the nested .flap span adds a fast independent
+   wing-flutter rotation on top, so the two motions combine naturally. */
+.flyer {
+  position: absolute;
+  left: -12%;
+  font-size: 2rem;
+  animation-name: fly-across;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  filter: drop-shadow(0 3px 6px rgba(74, 59, 42, 0.15));
 }
-.critter-strip span {
-  display: inline-block;
-  font-size: 2.1rem;
-  filter: drop-shadow(0 4px 8px rgba(74, 59, 42, 0.12));
+.flap { display: inline-block; animation: wing-flap 0.8s ease-in-out infinite alternate; }
+@keyframes fly-across {
+  0%   { left: -12%; transform: translateY(0); }
+  20%  { transform: translateY(-14px); }
+  40%  { transform: translateY(6px); }
+  60%  { transform: translateY(-10px); }
+  80%  { transform: translateY(4px); }
+  100% { left: 112%; transform: translateY(0); }
 }
-.critter-strip span:nth-child(even) { transform: translateY(9px) rotate(-7deg); }
-.critter-strip span:nth-child(3n) { transform: translateY(-7px) rotate(9deg); }
-.critter-strip span:nth-child(3n+1):not(:nth-child(even)) { transform: rotate(-5deg); }
+@keyframes wing-flap {
+  from { transform: rotate(-10deg) translateY(0); }
+  to   { transform: rotate(12deg) translateY(-3px); }
+}
+
+/* .walker travels along the ground at a fixed height, its nested .step
+   span adding a quick footstep bounce. */
+.walker {
+  position: absolute;
+  bottom: 2px;
+  left: -14%;
+  font-size: 2.3rem;
+  animation-name: walk-across;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  filter: drop-shadow(0 3px 6px rgba(74, 59, 42, 0.15));
+}
+.step { display: inline-block; animation: footstep 0.45s ease-in-out infinite alternate; }
+@keyframes walk-across {
+  0%   { left: -14%; }
+  100% { left: 114%; }
+}
+@keyframes footstep {
+  from { transform: translateY(0) scaleY(1); }
+  to   { transform: translateY(-3px) scaleY(0.95); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flyer, .walker { animation: none; left: 42%; }
+  .flap, .step { animation: none; }
+}
 @media (max-width: 640px) {
-  .critter-strip { gap: 20px; padding: 4px 14px 20px; }
-  .critter-strip span { font-size: 1.6rem; }
+  .flyer { font-size: 1.5rem; }
+  .walker { font-size: 1.8rem; }
 }
 
 /* -------------------- buttons -------------------- */
